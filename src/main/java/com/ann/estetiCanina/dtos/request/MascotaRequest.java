@@ -1,11 +1,11 @@
 package com.ann.estetiCanina.dtos.request;
 
-import java.time.LocalDate;
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
 
 public class MascotaRequest {
 
@@ -22,12 +22,16 @@ public class MascotaRequest {
     private String sexo;
 
     @Past
+    @NotNull
     private LocalDate fecha_nacimiento;
 
     @NotNull
     private Long clienteId;
 
-    public MascotaRequest( String nombre,  String raza, String sexo, LocalDate fecha_nacimiento, Long clienteId) {
+    public MascotaRequest() {
+    }
+
+    public MascotaRequest(String nombre, String raza, String sexo, LocalDate fecha_nacimiento, Long clienteId) {
         this.nombre = nombre;
         this.raza = raza;
         this.sexo = sexo;
@@ -74,7 +78,4 @@ public class MascotaRequest {
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }
-
-    
-    
 }
