@@ -12,31 +12,33 @@ import com.ann.estetiCanina.models.Cita;
 import com.ann.estetiCanina.models.Empleado;
 import com.ann.estetiCanina.models.Mascota;
 import com.ann.estetiCanina.repository.CitaRepository;
+import com.ann.estetiCanina.repository.EmpleadoRepository;
+import com.ann.estetiCanina.repository.MascotaRepository;
 import com.ann.estetiCanina.service.interfaces.ICitaService;
 
 @Service
 public class CitaServiceImpl implements ICitaService{
     private final CitaRepository citaRepo;
-    //private final MascotaRepository mascotaRepo;
-    //private final EmpleadoRepository empleadoRepo;
+    private final MascotaRepository mascotaRepo;
+    private final EmpleadoRepository empleadoRepo;
 
-    public CitaServiceImpl(CitaRepository citaRepo /*, MascotaRepository mascotaRepo, EmpleadoRepository empleadoRepo*/) {
+    public CitaServiceImpl(CitaRepository citaRepo , MascotaRepository mascotaRepo, EmpleadoRepository empleadoRepo) {
         this.citaRepo = citaRepo;
-        /*this.mascotaRepo = mascotaRepo;
-        this.empleadoRepo = empleadoRepo;*/
+        this.mascotaRepo = mascotaRepo;
+        this.empleadoRepo = empleadoRepo;
     }
 
     @Override
     public CitaResponse registrarCita(CitaRequest dto) {
-        //Mascota mascota = mascotaRepo.findById((long) dto.getMascota_id())
-                //.orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
+        Mascota mascota = mascotaRepo.findById((long) dto.getMascota_id())
+                .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
 
-        //Empleado empleado = empleadoRepo.findById((long) dto.getEmpleado_id())
-                //.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+        Empleado empleado = empleadoRepo.findById((long) dto.getEmpleado_id())
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
         Cita cita = new Cita();
-        //cita.setMascota(mascota);
-        //cita.setEmpleado(empleado);
+        cita.setMascota(mascota);
+        cita.setEmpleado(empleado);
         cita.setFecha(dto.getFecha());
         cita.setHora_inicio(dto.getHora_inicio());
         cita.setHora_fin(dto.getHora_fin());

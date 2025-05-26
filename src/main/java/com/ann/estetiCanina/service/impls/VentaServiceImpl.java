@@ -15,22 +15,22 @@ import java.util.stream.Collectors;
 public class VentaServiceImpl implements IVentaService {
 
     private final VentaRepository ventaRepo;
-    // private final EmpleadoRepository empleadoRepo;
+     private final EmpleadoRepository empleadoRepo;
 
-    public VentaServiceImpl(VentaRepository ventaRepo /*, EmpleadoRepository empleadoRepo */) {
+    public VentaServiceImpl(VentaRepository ventaRepo , EmpleadoRepository empleadoRepo ) {
         this.ventaRepo = ventaRepo;
-        // this.empleadoRepo = empleadoRepo;
+         this.empleadoRepo = empleadoRepo;
     }
 
     @Override
     public VentaResponse registrarVenta(VentaRequest dto) {
-        /*
+        
         Empleado empleado = empleadoRepo.findById(dto.getEmpleado_id())
                 .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
-        */
+    
 
         Venta venta = new Venta();
-        // venta.setEmpleado(empleado);
+         venta.setEmpleado(empleado);
         venta.setFecha(dto.getFecha());
         venta.setTotal(dto.getTotal());
 
@@ -62,7 +62,6 @@ public class VentaServiceImpl implements IVentaService {
         dto.setId(venta.getId_venta());
         dto.setFecha(venta.getFecha());
         dto.setTotal(venta.getTotal());
-        //dto.setNombreEmpleado(venta.getEmpleado().getNombre()); 
         return dto;
     }
 }

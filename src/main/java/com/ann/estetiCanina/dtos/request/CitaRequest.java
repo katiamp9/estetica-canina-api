@@ -14,13 +14,13 @@ public class CitaRequest {
     @NotNull
     private Long empleado_id;
 
-    @NotBlank
+    @NotNull
     private LocalDate fecha;
 
-    @NotBlank
+    @NotNull
     private LocalTime hora_inicio;
 
-    @NotBlank
+    @NotNull
     private LocalTime hora_fin;
 
     @NotBlank

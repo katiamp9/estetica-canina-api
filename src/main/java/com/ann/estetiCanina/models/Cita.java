@@ -23,6 +23,7 @@ public class Cita {
     @JoinColumn(name = "empleado_id", nullable = false)
     private Empleado empleado;
 
+    
     @Column(name = "fecha")
     private LocalDate fecha;
 

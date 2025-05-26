@@ -9,26 +9,27 @@ import com.ann.estetiCanina.dtos.request.TurnoRequest;
 import com.ann.estetiCanina.dtos.response.TurnoResponse;
 import com.ann.estetiCanina.models.Empleado;
 import com.ann.estetiCanina.models.Turno;
+import com.ann.estetiCanina.repository.EmpleadoRepository;
 import com.ann.estetiCanina.repository.TurnoRepository;
 import com.ann.estetiCanina.service.interfaces.ITurnoService;
 
 @Service
 public class TurnoServiceImpl implements ITurnoService{
     private final TurnoRepository turnoRepo;
-    //private final EmpleadoRepository empleadoRepo;
+    private final EmpleadoRepository empleadoRepo;
 
-    public TurnoServiceImpl(TurnoRepository turnoRepo/*, EmpleadoRepository empleadoRepo*/) {
+    public TurnoServiceImpl(TurnoRepository turnoRepo, EmpleadoRepository empleadoRepo) {
         this.turnoRepo = turnoRepo;
-      //  this.empleadoRepo = empleadoRepo;
+        this.empleadoRepo = empleadoRepo;
     }
 
     @Override
     public TurnoResponse registrarTurno(TurnoRequest dto) {
-       /* Empleado empleado = empleadoRepo.findById(dto.getEmpleadoId())
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));*/
+        Empleado empleado = empleadoRepo.findById(dto.getEmpleadoId())
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
         Turno turno = new Turno();
-        //turno.setEmpleado(empleado);
+        turno.setEmpleado(empleado);
         turno.setDia_semana(dto.getDia_semana());
         turno.setHora_inicio(dto.getHora_inicio());
         turno.setHora_fin(dto.getHora_fin());
