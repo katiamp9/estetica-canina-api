@@ -7,9 +7,9 @@ import com.ann.estetiCanina.service.interfaces.IClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
     private final IClienteService clienteService;
