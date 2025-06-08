@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/mascotas")
 public class MascotaController {
@@ -51,7 +51,7 @@ public class MascotaController {
     }
 
     // Listar mascotas por cliente
-    @GetMapping("/cliente/{clienteId}")
+    @GetMapping("/{clienteId}")
     public ResponseEntity<List<MascotaResponse>> obtenerPorCliente(@PathVariable Long clienteId) {
         return ResponseEntity.ok(mascotaService.obtenerMascotasPorCliente(clienteId));
     }
