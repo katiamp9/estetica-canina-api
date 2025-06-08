@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
@@ -45,5 +47,19 @@ public class ClienteServiceImpl implements IClienteService {
                 guardado.getDireccion()
         );
     }
+    @Override
+public List<ClienteResponse> getAllClientes() {
+    List<Cliente> clientes = clienteRepository.findAll();
+    return clientes.stream()
+            .map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getNombre(),
+                cliente.getCorreo(),
+                cliente.getTelefono(),
+                cliente.getDireccion()
+            ))
+            .collect(Collectors.toList());
+}
+
 }
 
