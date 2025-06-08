@@ -23,5 +23,10 @@ public class ClienteController {
     public ClienteResponse registrarCliente(@Valid @RequestBody ClienteRequest request) {
         return clienteService.registrarCliente(request);
     }
+    @GetMapping
+    public List<ClienteResponse> getAllClientes() {
+        return clienteService.getAllClientes();
+    }
+
 }
 
