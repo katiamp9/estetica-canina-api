@@ -6,4 +6,6 @@ import com.ann.estetiCanina.dtos.request.ClienteRequest;
 
 public interface IClienteService {
     ClienteResponse registrarCliente(ClienteRequest request);
+    List<ClienteResponse> getAllClientes();
+
 }
