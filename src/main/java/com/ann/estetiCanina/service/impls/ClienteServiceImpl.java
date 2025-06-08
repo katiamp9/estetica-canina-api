@@ -45,5 +45,19 @@ public class ClienteServiceImpl implements IClienteService {
                 guardado.getDireccion()
         );
     }
+    @Override
+public List<ClienteResponse> getAllClientes() {
+    List<Cliente> clientes = clienteRepository.findAll();
+    return clientes.stream()
+            .map(cliente -> new ClienteResponse(
+                cliente.getId(),
+                cliente.getNombre(),
+                cliente.getCorreo(),
+                cliente.getTelefono(),
+                cliente.getDireccion()
+            ))
+            .collect(Collectors.toList());
+}
+
 }
 
