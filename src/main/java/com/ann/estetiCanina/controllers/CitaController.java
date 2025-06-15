@@ -1,5 +1,6 @@
 package com.ann.estetiCanina.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ann.estetiCanina.dtos.request.CitaRequest;
+import com.ann.estetiCanina.dtos.response.CitaDetalladaResponse;
 import com.ann.estetiCanina.dtos.response.CitaResponse;
 import com.ann.estetiCanina.service.interfaces.ICitaService;
 
@@ -49,16 +51,27 @@ public class CitaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}/total")
+    public BigDecimal obtenerTotalCita(@PathVariable("id") Integer idCita) {
+        return citaService.obtenerTotalCita(idCita);
+    }
+
+    @GetMapping("{id}/detalle")
+    public ResponseEntity<List<CitaDetalladaResponse>> obtenerDetalleCita(@PathVariable Integer id) {
+        List<CitaDetalladaResponse> detalles = citaService.obtenerDatosCitaDetallada(id);
+        return ResponseEntity.ok(detalles);
+    }
+
     /*
-        {
-            "mascota_id": 1,
-            "empleado_id": 2,
-            "fecha": "2025-05-17",
-            "hora_inicio": "10:00",
-            "hora_fin": "11:00",
-            "estado": "PENDIENTE",
-            "observaciones": "Primera visita"
-        }
-      
-    */
+     * {
+     * "mascota_id": 1,
+     * "empleado_id": 2,
+     * "fecha": "2025-05-17",
+     * "hora_inicio": "10:00",
+     * "hora_fin": "11:00",
+     * "estado": "PENDIENTE",
+     * "observaciones": "Primera visita"
+     * }
+     * 
+     */
 }
