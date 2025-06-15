@@ -1,12 +1,13 @@
 package com.ann.estetiCanina.service.impls;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import com.ann.estetiCanina.dtos.request.CitaRequest;
+import com.ann.estetiCanina.dtos.response.CitaDetalladaResponse;
 import com.ann.estetiCanina.dtos.response.CitaResponse;
 import com.ann.estetiCanina.models.Cita;
 import com.ann.estetiCanina.models.Empleado;
@@ -16,13 +17,19 @@ import com.ann.estetiCanina.repository.EmpleadoRepository;
 import com.ann.estetiCanina.repository.MascotaRepository;
 import com.ann.estetiCanina.service.interfaces.ICitaService;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service
-public class CitaServiceImpl implements ICitaService{
+public class CitaServiceImpl implements ICitaService {
     private final CitaRepository citaRepo;
     private final MascotaRepository mascotaRepo;
     private final EmpleadoRepository empleadoRepo;
 
-    public CitaServiceImpl(CitaRepository citaRepo , MascotaRepository mascotaRepo, EmpleadoRepository empleadoRepo) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public CitaServiceImpl(CitaRepository citaRepo, MascotaRepository mascotaRepo, EmpleadoRepository empleadoRepo) {
         this.citaRepo = citaRepo;
         this.mascotaRepo = mascotaRepo;
         this.empleadoRepo = empleadoRepo;
@@ -48,6 +55,11 @@ public class CitaServiceImpl implements ICitaService{
         Cita guardada = citaRepo.save(cita);
 
         return mapToResponse(guardada);
+    }
+
+    @Override
+    public BigDecimal obtenerTotalCita(Integer idCita) {
+        return citaRepo.obtenerTotalCita(idCita);
     }
 
     @Override
@@ -81,5 +93,10 @@ public class CitaServiceImpl implements ICitaService{
         res.setEstado(cita.getEstado());
         res.setObservaciones(cita.getObservaciones());
         return res;
+    }
+
+    @Override
+    public List<CitaDetalladaResponse> obtenerDatosCitaDetallada(Integer idCita) {
+        return citaRepo.obtenerDatosCitaDetallada(idCita);
     }
 }
